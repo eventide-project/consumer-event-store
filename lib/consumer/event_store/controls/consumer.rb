@@ -7,6 +7,10 @@ module Consumer
 
           handle Controls::Handle::Example
         end
+
+        class LogsEvents < ::Consumer::Controls::Consumer::LogsEvents
+          include ::Consumer::EventStore
+        end
       end
     end
   end
