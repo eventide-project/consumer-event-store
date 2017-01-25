@@ -8,7 +8,7 @@ module Consumer
           handle Controls::Handle::Example
         end
 
-        class LogsEvents < ::Consumer::Controls::Consumer::LogsEvents
+        class Incrementing < ::Consumer::Controls::Consumer::Incrementing
           include ::Consumer::EventStore
         end
       end

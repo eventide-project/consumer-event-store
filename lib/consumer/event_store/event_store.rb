@@ -10,7 +10,7 @@ module Consumer
       end
     end
 
-    def configure(session: nil, batch_size: nil)
+    def configure(session: nil, batch_size: nil, position_store: nil)
       cycle_timeout = cycle_timeout_milliseconds || Consumer::Subscription::Defaults.cycle_timeout_milliseconds
 
       long_poll_duration = Rational(cycle_timeout, 1000).ceil
