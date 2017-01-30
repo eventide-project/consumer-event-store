@@ -21,6 +21,13 @@ module Consumer
         long_poll_duration: long_poll_duration,
         session: session
       )
+
+      PositionStore.configure(
+        self,
+        stream,
+        session: session,
+        position_store: position_store
+      )
     end
   end
 end
