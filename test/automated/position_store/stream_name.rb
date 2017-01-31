@@ -23,7 +23,7 @@ context "Position Store" do
       position_stream_name = Consumer::EventStore::PositionStore::StreamName.canonize category
 
       test "Includes position subtype" do
-        assert position_stream_name == "$ce-#{category}:position"
+        assert position_stream_name == "#{category}:position"
       end
     end
   end

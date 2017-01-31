@@ -55,10 +55,8 @@ module Consumer
           return stream.name if stream.type == 'position'
 
           stream_name = "#{stream.category}:position"
-
           stream_name << "-#{stream.id}" if stream.id
-
-          EventSource::EventStore::HTTP::StreamName.canonize stream_name
+          stream_name
         end
       end
     end
