@@ -25,9 +25,9 @@ context "Configuration" do
     end
 
     context "Session" do
-      test "Is set" do
+      test "Is copied" do
         assert get do
-          session? session
+          session? session, copy: true
         end
       end
     end

@@ -15,11 +15,15 @@ module Consumer
 
       long_poll_duration = Rational(cycle_timeout, 1000).ceil
 
+      unless session.nil?
+        get_session = ::EventStore::HTTP::Session.copy session
+      end
+
       EventSource::EventStore::HTTP::Get.configure(
         self,
         batch_size: batch_size,
         long_poll_duration: long_poll_duration,
-        session: session
+        session: get_session
       )
 
       PositionStore.configure(
