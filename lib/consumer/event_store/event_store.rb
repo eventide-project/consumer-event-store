@@ -22,9 +22,11 @@ module Consumer
         session: get_session
       )
 
+      position_store_stream_name = stream_name.sub %r{\A\$ce-}, ''
+
       PositionStore.configure(
         self,
-        stream_name,
+        position_store_stream_name,
         session: session,
         position_store: position_store
       )
