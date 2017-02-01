@@ -11,7 +11,7 @@ module Consumer
         class Example
           include ::Consumer::EventStore
 
-          handle Controls::Handle::Example
+          handler Controls::Handle::Example
         end
 
         class Incrementing < ::Consumer::Controls::Consumer::Incrementing
