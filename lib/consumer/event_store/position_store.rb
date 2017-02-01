@@ -10,9 +10,7 @@ module Consumer
       dependency :write, ::Messaging::EventStore::Write
 
       def self.build(stream_name, session: nil)
-        stream = EventSource::Stream.build stream_name
-
-        position_stream_name = StreamName.canonize stream.name
+        position_stream_name = StreamName.canonize stream_name
 
         instance = new position_stream_name
         EventSource::EventStore::HTTP::Session.configure instance, session: session
@@ -50,13 +48,17 @@ module Consumer
 
       module StreamName
         def self.canonize(stream_name)
-          stream = EventSource::Stream.build stream_name
+          types = EventSource::StreamName.get_type_list stream_name
+          types = Array(types)
 
-          return stream.name if stream.type == 'position'
+          return stream_name if types.include? 'position'
 
-          stream_name = "#{stream.category}:position"
-          stream_name << "-#{stream.id}" if stream.id
-          stream_name
+          types << 'position'
+
+          entity_name = EventSource::StreamName.get_entity_name stream_name
+          id = EventSource::StreamName.get_id stream_name
+
+          EventSource::StreamName.stream_name entity_name, id, types: types
         end
       end
     end

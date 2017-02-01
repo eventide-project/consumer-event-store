@@ -27,7 +27,7 @@ context "Configuration" do
     context "Session" do
       test "Is copied" do
         assert get do
-          session? session, copy: true
+          session? session, strict: false
         end
       end
     end
@@ -52,16 +52,19 @@ context "Configuration" do
       end
     end
 
-    context "Stream" do
-      control_stream = EventSource::Stream.build stream_name
-      stream = EventSource::Stream.build position_store.stream_name
-
+    context "Stream name" do
       test "Category" do
-        assert stream.category == "#{control_stream.category}:position"
+        control_category = Messaging::StreamName.get_category stream_name
+        category = Messaging::StreamName.get_category position_store.stream_name
+
+        assert category == "#{control_category}:position"
       end
 
       test "ID" do
-        assert stream.id == control_stream.id
+        control_id = Messaging::StreamName.get_id stream_name
+        id = Messaging::StreamName.get_id position_store.stream_name
+
+        assert id == control_id
       end
     end
   end

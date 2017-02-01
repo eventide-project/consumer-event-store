@@ -1,9 +1,5 @@
 module Consumer
   module EventStore
-    def self.activate
-      Subscription.activate
-    end
-
     def self.included(cls)
       cls.class_exec do
         include Consumer
@@ -16,7 +12,7 @@ module Consumer
       long_poll_duration = Rational(cycle_timeout, 1000).ceil
 
       unless session.nil?
-        get_session = ::EventStore::HTTP::Session.copy session
+        get_session = CopySession.(session)
       end
 
       EventSource::EventStore::HTTP::Get.configure(
@@ -28,7 +24,7 @@ module Consumer
 
       PositionStore.configure(
         self,
-        stream,
+        stream_name,
         session: session,
         position_store: position_store
       )
