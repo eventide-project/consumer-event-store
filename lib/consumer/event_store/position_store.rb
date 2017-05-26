@@ -33,11 +33,10 @@ module Consumer
       end
 
       def put(position)
-        message = Updated.build(:position => position)
+        message = Updated.new
+        message.position = position
 
         write.(message, stream_name)
-
-        message
       end
     end
   end
