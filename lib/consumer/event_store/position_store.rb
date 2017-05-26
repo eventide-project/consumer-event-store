@@ -28,12 +28,12 @@ module Consumer
 
         return nil if message_data.nil?
 
-        message = Messaging::Message::Import.(message_data, Messages::PositionUpdated)
+        message = Messaging::Message::Import.(message_data, Updated)
         message.position
       end
 
       def put(position)
-        message = Messages::PositionUpdated.build(:position => position)
+        message = Updated.build(:position => position)
 
         write.(message, stream_name)
 

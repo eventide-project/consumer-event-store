@@ -7,7 +7,7 @@ module Consumer
             stream_name ||= StreamName.example type: 'position'
             position ||= 0
 
-            message = PositionStore::Messages::PositionUpdated.new
+            message = PositionStore::Updated.new
             message.position = position
 
             Messaging::EventStore::Write.(message, stream_name)
