@@ -11,11 +11,11 @@ logger = Log.get __FILE__
 (1..4).to_a.cycle do |stream_id|
   stream_name = MessageStore::StreamName.stream_name(category, stream_id)
 
-  message_Data = Controls::MessageData.example
+  message_data = Controls::MessageData.example
 
-  position = write.(message_Data, stream_name)
+  position = write.(message_data, stream_name)
 
-  logger.info "Wrote event (Stream Name: #{stream_name}, Position: #{position})"
+  logger.info "Wrote message (Stream Name: #{stream_name}, Position: #{position})"
 
   sleep Rational(period, 1000)
 end
