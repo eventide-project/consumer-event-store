@@ -22,11 +22,11 @@ module Consumer
         session: get_session
       )
 
-      position_store_stream_name = stream_name.sub %r{\A\$ce-}, ''
+      category = MessageStore::EventStore::StreamName.get_category(stream_name)
 
       PositionStore.configure(
         self,
-        position_store_stream_name,
+        category,
         session: session,
         position_store: position_store
       )
