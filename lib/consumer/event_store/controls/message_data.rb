@@ -1,7 +1,7 @@
 module Consumer
   module EventStore
     module Controls
-      EventData = ::Consumer::Controls::EventData
+      MessageData = ::Consumer::Controls::MessageData
     end
   end
 end

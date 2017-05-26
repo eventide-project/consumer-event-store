@@ -15,7 +15,7 @@ module Consumer
         get_session = CopySession.(session)
       end
 
-      EventSource::EventStore::HTTP::Get.configure(
+      MessageStore::EventStore::Get.configure(
         self,
         batch_size: batch_size,
         long_poll_duration: long_poll_duration,

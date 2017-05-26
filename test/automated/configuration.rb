@@ -6,7 +6,7 @@ context "Configuration" do
 
   stream_name = Controls::StreamName.example
 
-  session = EventSource::EventStore::HTTP::Session.build
+  session = MessageStore::EventStore::Session.build
 
   consumer = Controls::Consumer::Example.build(
     stream_name,

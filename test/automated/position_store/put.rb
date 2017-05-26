@@ -11,9 +11,9 @@ context "Consumer Stream Position Store, Put Operation" do
   test "Position is written to consumer stream" do
     consumer_stream_name = Consumer::EventStore::PositionStore::StreamName.canonize stream_name
 
-    event_data = EventSource::EventStore::HTTP::Get::Last.(consumer_stream_name)
+    message_data = MessageStore::EventStore::Get::Last.(consumer_stream_name)
 
-    position = event_data.data[:position]
+    position = message_data.data[:position]
 
     assert position == 11
   end
