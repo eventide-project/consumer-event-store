@@ -22,11 +22,9 @@ module Consumer
         session: get_session
       )
 
-      category = MessageStore::EventStore::StreamName.get_category(stream_name)
-
       PositionStore.configure(
         self,
-        category,
+        stream_name,
         session: session,
         position_store: position_store
       )

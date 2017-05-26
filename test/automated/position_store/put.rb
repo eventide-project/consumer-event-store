@@ -9,7 +9,7 @@ context "Consumer Stream Position Store, Put Operation" do
   position_store.put position
 
   test "Position is written to consumer stream" do
-    consumer_stream_name = Consumer::EventStore::PositionStore::StreamName.canonize stream_name
+    consumer_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
 
     message_data = MessageStore::EventStore::Get::Last.(consumer_stream_name)
 

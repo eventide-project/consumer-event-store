@@ -62,7 +62,7 @@ context "Configuration" do
 
       test "ID" do
         control_id = Messaging::StreamName.get_id stream_name
-        id = Messaging::StreamName.get_id position_store.stream_name
+        id = MessageStore::EventStore::StreamName.get_id position_store.stream_name
 
         assert id == control_id
       end

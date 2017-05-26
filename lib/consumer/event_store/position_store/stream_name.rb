@@ -2,18 +2,25 @@ module Consumer
   module EventStore
     class PositionStore
       module StreamName
-        def self.canonize(stream_name)
-          types = MessageStore::EventStore::StreamName.get_type_list(stream_name)
+        def self.get(stream_name)
+          match_data = MessageStore::EventStore::StreamName.parse(stream_name)
+
+          types = match_data[:type_list]
           types = Array(types)
 
           return stream_name if types.include?('position')
 
           types << 'position'
 
-          entity_name = MessageStore::EventStore::StreamName.get_entity_name(stream_name)
-          stream_id = MessageStore::EventStore::StreamName.get_id(stream_name)
+          entity_name = match_data[:entity]
 
-          MessageStore::StreamName.stream_name(entity_name, stream_id, types: types)
+          stream_id = match_data[:stream_id]
+
+          MessageStore::StreamName.stream_name(
+            entity_name,
+            stream_id,
+            types: types
+          )
         end
       end
     end

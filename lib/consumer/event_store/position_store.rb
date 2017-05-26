@@ -10,7 +10,7 @@ module Consumer
       dependency :write, ::Messaging::EventStore::Write
 
       def self.build(stream_name, session: nil)
-        position_stream_name = StreamName.canonize stream_name
+        position_stream_name = StreamName.get(stream_name)
 
         instance = new position_stream_name
         MessageStore::EventStore::Session.configure instance, session: session
