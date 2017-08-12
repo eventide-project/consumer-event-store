@@ -17,6 +17,12 @@ module Consumer
         class Incrementing < ::Consumer::Controls::Consumer::Incrementing
           include ::Consumer::EventStore
         end
+
+        class Identifier
+          include ::Consumer::EventStore
+
+          identifier Controls::Identifier.example
+        end
       end
     end
   end
