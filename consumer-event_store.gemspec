@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'evt-consumer-event_store'
-  s.version = '0.3.0.3'
+  s.version = '0.3.1.0'
   s.summary = 'Category and stream consumer for EventStore'
   s.description = ' '
 
