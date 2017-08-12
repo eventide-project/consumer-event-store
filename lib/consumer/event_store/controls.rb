@@ -1,5 +1,6 @@
 require 'consumer/controls'
 
+require 'consumer/event_store/controls/identifier'
 require 'consumer/event_store/controls/category'
 require 'consumer/event_store/controls/message_data'
 require 'consumer/event_store/controls/handle'

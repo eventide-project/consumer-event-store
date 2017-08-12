@@ -25,8 +25,9 @@ module Consumer
       PositionStore.configure(
         self,
         stream_name,
-        session: session,
-        position_store: position_store
+        position_store: position_store,
+        consumer_identifier: identifier,
+        session: session
       )
     end
   end

@@ -9,7 +9,7 @@ context "Position Store" do
         position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
 
         test "Includes position type" do
-          assert position_stream_name == 'someStream:position-111'
+          assert(position_stream_name == 'someStream:position-111')
         end
       end
 
@@ -19,7 +19,7 @@ context "Position Store" do
         position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
 
         test "Includes position type" do
-          assert position_stream_name == 'someStream:position'
+          assert(position_stream_name == 'someStream:position')
         end
       end
 
@@ -29,7 +29,7 @@ context "Position Store" do
         position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
 
         test "Includes position type but not prefix" do
-          assert position_stream_name == 'someStream:position'
+          assert(position_stream_name == 'someStream:position')
         end
       end
     end
@@ -41,7 +41,7 @@ context "Position Store" do
         position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
 
         test "Includes position type just once" do
-          assert position_stream_name == 'someStream:position-111'
+          assert(position_stream_name == 'someStream:position-111')
         end
       end
 
@@ -51,7 +51,7 @@ context "Position Store" do
         position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
 
         test "Includes position type just once" do
-          assert position_stream_name == 'someStream:position'
+          assert(position_stream_name == 'someStream:position')
         end
       end
     end
@@ -63,7 +63,7 @@ context "Position Store" do
         position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
 
         test "Preserves other type" do
-          assert position_stream_name == 'someStream:someType+position-111'
+          assert(position_stream_name == 'someStream:someType+position-111')
         end
       end
 
@@ -73,7 +73,31 @@ context "Position Store" do
         position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
 
         test "Preserves other type" do
-          assert position_stream_name == 'someStream:someType+position'
+          assert(position_stream_name == 'someStream:someType+position')
+        end
+      end
+    end
+
+    context "Consumer identifier given" do
+      context "Category" do
+        stream_name = 'someCategory'
+        identifier = 'someIdentifier'
+
+        position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name, consumer_identifier: identifier)
+
+        test "Appends identifier" do
+          assert(position_stream_name == 'someCategory:position-someIdentifier')
+        end
+      end
+
+      context "Stream" do
+        stream_name = 'someStream-1'
+        identifier = 'someIdentifier'
+
+        position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name, consumer_identifier: identifier)
+
+        test "Appends identifier" do
+          assert(position_stream_name == 'someStream:position-1-someIdentifier')
         end
       end
     end
