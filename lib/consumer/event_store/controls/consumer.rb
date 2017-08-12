@@ -5,7 +5,7 @@ module Consumer
         def self.example(stream_name: nil)
           stream_name ||= StreamName.example
 
-          Example.build stream_name
+          Example.build(stream_name)
         end
 
         class Example

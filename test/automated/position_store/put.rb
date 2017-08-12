@@ -5,8 +5,8 @@ context "Consumer Stream Position Store, Put Operation" do
 
   position = 11
 
-  position_store = Consumer::EventStore::PositionStore.build stream_name
-  position_store.put position
+  position_store = Consumer::EventStore::PositionStore.build(stream_name)
+  position_store.put(position)
 
   test "Position is written to consumer stream" do
     consumer_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
@@ -15,6 +15,6 @@ context "Consumer Stream Position Store, Put Operation" do
 
     position = message_data.data[:position]
 
-    assert position == 11
+    assert(position == 11)
   end
 end

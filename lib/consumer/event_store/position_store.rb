@@ -12,15 +12,15 @@ module Consumer
       def self.build(stream_name, session: nil, consumer_identifier: nil)
         position_stream_name = StreamName.get(stream_name, consumer_identifier: consumer_identifier)
 
-        instance = new position_stream_name
-        MessageStore::EventStore::Session.configure instance, session: session
+        instance = new(position_stream_name)
+        MessageStore::EventStore::Session.configure(instance, session: session)
         instance.configure
         instance
       end
 
       def configure
-        MessageStore::EventStore::Get::Last.configure self, session: session
-        Messaging::EventStore::Write.configure self, session: session
+        MessageStore::EventStore::Get::Last.configure(self, session: session)
+        Messaging::EventStore::Write.configure(self, session: session)
       end
 
       def get
