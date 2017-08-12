@@ -73,8 +73,50 @@ context "Position Store" do
         position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name)
 
         test "Preserves other type" do
-          assert position_stream_name == 'someStream:someType+position'
+          assert(position_stream_name == 'someStream:someType+position')
         end
+      end
+    end
+
+    context "Consumer identifier given" do
+      context "Category" do
+        stream_name = 'someCategory'
+        identifier = 'someIdentifier'
+
+        position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name, consumer_identifier: identifier)
+
+        test "Appends identifier" do
+          assert(position_stream_name == 'someCategory:position-someIdentifier')
+        end
+      end
+
+      context "Stream" do
+        stream_name = 'someStream-1'
+        identifier = 'someIdentifier'
+
+        position_stream_name = Consumer::EventStore::PositionStore::StreamName.get(stream_name, consumer_identifier: identifier)
+
+        test "Appends identifier" do
+          assert(position_stream_name == 'someStream:position-1-someIdentifier')
+        end
+      end
+    end
+
+    context "Stream name contains other types" do
+      other_type = 'someType'
+
+      stream_name = Controls::StreamName.example(id: stream_id, randomize_category: false, type: other_type)
+
+      position_store_stream_name = Consumer::Postgres::PositionStore::StreamName.get(stream_name)
+
+      test do
+        control_stream_name = Controls::StreamName::Position.example(
+          id: stream_id,
+          randomize_category: false,
+          types: [other_type]
+        )
+
+        assert(position_store_stream_name == control_stream_name)
       end
     end
   end
